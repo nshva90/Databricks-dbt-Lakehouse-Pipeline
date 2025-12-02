@@ -1,0 +1,13 @@
+sources:
+  - name: source
+    database: dbttutorial_dev  
+    schema: source 
+    tables:
+      - name: fact_sales
+      - name: fact_returns
+      - name: dim_store
+      - name: dim_product
+      - name: dim_date
+      - name: dim_customer
+      - name: items
+

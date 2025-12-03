@@ -1,3 +1,56 @@
+Architecture Diagram
+                 ┌─────────────────────────────┐
+                 │        Source Data           │
+                 │  (CSV, JSON, API Streams)    │
+                 └──────────────┬──────────────┘
+                                │ Ingestion
+                                ▼
+                 ┌─────────────────────────────┐
+                 │     Databricks Bronze       │
+                 │  Raw Delta Tables (Landing) │
+                 │  - No transformations       │
+                 └──────────────┬──────────────┘
+                                │ Clean & Refine
+                                ▼
+                 ┌─────────────────────────────┐
+                 │     Databricks Silver       │
+                 │  Curated Delta Tables       │
+                 │  - Cleansed                │
+                 │  - Standardized            │
+                 │  - Validated               │
+                 └──────────────┬──────────────┘
+                                │ Transformation (dbt)
+                                ▼
+                 ┌─────────────────────────────┐
+                 │            dbt               │
+                 │  Models:                     │
+                 │   - bronze_*                 │
+                 │   - silver_*                 │
+                 │                               │
+                 │  Features Used:               │
+                 │   - ref()                     │
+                 │   - sources()                 │
+                 │   - tests                     │
+                 │   - documentation             │
+                 └──────────────┬──────────────┘
+                                │ Build & Run
+                                ▼
+                 ┌─────────────────────────────┐
+                 │     Databricks SQL Warehouse │
+                 │ - Executes dbt queries        │
+                 │ - Computes models             │
+                 │ - Stores results as Delta     │
+                 └──────────────┬──────────────┘
+                                │ Serve Data
+                                ▼
+                 ┌─────────────────────────────┐
+                 │      Analytics / BI          │
+                 │  PowerBI / Tableau / SQL      │
+                 │  - Dashboards                 │
+                 │  - Reporting                  │
+                 └─────────────────────────────┘
+
+
 # Databricks + dbt Data Engineering Pipeline
 
 This repository showcases a simple, **data engineering project** built using **Databricks**, **dbt**, and **Delta Lake**.  
@@ -30,4 +83,5 @@ DBT/
 ├── pyproject.toml # Python dependencies (uv)
 ├── requirements.txt # Python deps (pip)
 └── README.md
+
 
